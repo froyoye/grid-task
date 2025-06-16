@@ -41,7 +41,9 @@ Jeg gjorde litt research i hvordan koden kunne forenkles og kortes ned, men ette
 ## Eksempel på output
 
 Det største produktet er: 93168306
+
 Retning: Diagonalt Venstre
+
 Indeks i grid: [18, 15], [17, 16], [16, 17], [15, 18]
 
 ## Hvordan kjøre koden
