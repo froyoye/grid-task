@@ -40,6 +40,24 @@ public class FinnProdukt {
         }
         return new int[]{maksProdukt, startRad, startKol};
     }
+
+    public static int[] vertikaltProdukt(int[][] grid) {
+        int maksProdukt = 0;
+        int startRad = -1;
+        int startKol = -1;
+
+        for (int kolonne = 0; kolonne < 20; kolonne++) {
+            for (int rad = 0; rad <= 20 - 4; rad++) {
+                int produkt = grid[rad][kolonne] * grid[rad + 1][kolonne] * grid[rad + 2][kolonne] * grid[rad + 3][kolonne];
+                if (produkt > maksProdukt) {
+                    maksProdukt = produkt;
+                    startRad = rad;
+                    startKol = kolonne;
+                }
+            }
+        }
+        return new int[]{maksProdukt, startRad, startKol};
+    }
     public static void main(String[] args){
         try {
             int[][] grid = lesGridFraFil("src/main/resources/grid.txt");
@@ -53,10 +71,18 @@ public class FinnProdukt {
             int[] horisontalMaks = horisontaltProdukt(grid);
             System.out.println("Største horisontale produkt: " + horisontalMaks[0]);
             
-            int rad = horisontalMaks[1];
-            int kolonne = horisontalMaks[2];
+            int hRad = horisontalMaks[1];
+            int hKol = horisontalMaks[2];
 
-            System.out.println("Posisjon for tallene er: [" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+            System.out.println("Posisjon for tallene er: [" + hRad + ", " + hKol + "], [" + hRad + ", " + (hKol + 1) + "], [" + hRad + ", " + (hKol + 2) + "], [" + hRad + ", " + (hKol + 3) + "]");
+            
+            int[] vertikalMaks = vertikaltProdukt(grid);
+            System.out.println("Største vertikale produkt: " + vertikalMaks[0]);
+            
+            int vRad = vertikalMaks[1];
+            int vKol = vertikalMaks[2];
+
+            System.out.println("Posisjon for tallene er: [" + vRad + ", " + vKol + "], [" + vRad + ", " + (vKol + 1) + "], [" + vRad + ", " + (vKol + 2) + "], [" + vRad + ", " + (vKol + 3) + "]");
         } catch (IOException e) {
             e.printStackTrace();
         }
