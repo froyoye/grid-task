@@ -126,21 +126,32 @@ public class FinnProdukt {
             int rad = maks[1];
             int kolonne = maks[2];
 
-            System.out.print("Indeks i grid: ");
+            int dRad = 0, dKol = 0;
             switch (retning) {
                 case "Horisontalt":
-                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    dRad = 0; dKol = 1;
                     break;
                 case "Vertikalt":
-                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    dRad = 1; dKol = 0;
                     break;
                 case "Diagonalt Høyre":
-                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    dRad = 1; dKol = 1;
                     break;
                 case "Diagonalt Venstre":
-                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    dRad = -1; dKol = 1;
                     break;
             }
+
+            System.out.print("Indeks i grid: ");
+            for (int i = 0; i < 4; i++) {
+                int r = rad + i * dRad;
+                int k = kolonne + i * dKol;
+                System.out.print("[" + r + ", " + k + "]");
+                if (i < 3) System.out.print(", ");
+            }
+
+            System.out.println();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
