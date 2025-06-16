@@ -58,6 +58,43 @@ public class FinnProdukt {
         }
         return new int[]{maksProdukt, startRad, startKol};
     }
+
+    public static int[] diagonaltHProdukt(int[][] grid) {
+        int maksProdukt = 0;
+        int startRad = -1;
+        int startKol = -1;
+
+        for (int rad = 0; rad <= 20 - 4; rad++) {
+            for (int kolonne = 0; kolonne <= 20 - 4; kolonne++) {
+                int produkt = grid[rad][kolonne] * grid[rad + 1][kolonne + 1] * grid[rad + 2][kolonne + 2] * grid[rad + 3][kolonne + 3];
+                if (produkt > maksProdukt) {
+                    maksProdukt = produkt;
+                    startRad = rad;
+                    startKol = kolonne;
+                }
+            }
+        }
+        return new int[]{maksProdukt, startRad, startKol};
+    }
+
+    public static int[] diagonaltVProdukt(int[][] grid) {
+        int maksProdukt = 0;
+        int startRad = -1;
+        int startKol = -1;
+
+        for (int rad = 3; rad < 20; rad++) {
+            for (int kolonne = 0; kolonne <= 20 - 4; kolonne++) {
+                int produkt = grid[rad][kolonne] * grid[rad - 1][kolonne + 1] * grid[rad - 2][kolonne + 2] * grid[rad - 3][kolonne + 3];
+                if (produkt > maksProdukt) {
+                    maksProdukt = produkt;
+                    startRad = rad;
+                    startKol = kolonne;
+                }
+            }
+        }
+        return new int[]{maksProdukt, startRad, startKol};
+    }
+
     public static void main(String[] args){
         try {
             int[][] grid = lesGridFraFil("src/main/resources/grid.txt");
@@ -83,6 +120,22 @@ public class FinnProdukt {
             int vKol = vertikalMaks[2];
 
             System.out.println("Posisjon for tallene er: [" + vRad + ", " + vKol + "], [" + vRad + ", " + (vKol + 1) + "], [" + vRad + ", " + (vKol + 2) + "], [" + vRad + ", " + (vKol + 3) + "]");
+            
+            int[] diagonalHMaks = diagonaltHProdukt(grid);
+            System.out.println("Største diagonale produkt (høyre): " + diagonalHMaks[0]);
+            
+            int dhRad = diagonalHMaks[1];
+            int dhKol = diagonalHMaks[2];
+            
+            System.out.println("Posisjon for tallene er: [" + dhRad + ", " + dhKol + "], [" + (dhRad + 1) + ", " + (dhKol + 1) + "], [" + (dhRad + 2) + ", " + (dhKol + 2) + "], [" + (dhRad + 3) + ", " + (dhKol + 3) + "]");
+            
+            int[] diagonalVMaks = diagonaltVProdukt(grid);
+            System.out.println("Største diagonale produkt (venstre): " + diagonalVMaks[0]);
+            
+            int dvRad = diagonalVMaks[1];
+            int dvKol = diagonalVMaks[2];
+            
+            System.out.println("Posisjon for tallene er: [" + dvRad + ", " + dvKol + "], [" + (dvRad - 1) + ", " + (dvKol + 1) + "], [" + (dvRad - 2) + ", " + (dvKol + 2) + "], [" + (dvRad - 3) + ", " + (dvKol + 3) + "]");
         } catch (IOException e) {
             e.printStackTrace();
         }
