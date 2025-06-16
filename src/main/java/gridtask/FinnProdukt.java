@@ -99,43 +99,48 @@ public class FinnProdukt {
         try {
             int[][] grid = lesGridFraFil("src/main/resources/grid.txt");
 
-            for (int[] rad : grid) {
-                for (int verdi : rad) {
-                    System.out.printf("%5d", verdi);
-                }
-                System.out.println();
+            int[] horisontalt = horisontaltProdukt(grid);
+            int[] vertikalt = vertikaltProdukt(grid);
+            int[] diagonaltH = diagonaltHProdukt(grid);
+            int[] diagonaltV = diagonaltVProdukt(grid);
+
+            int[] maks = horisontalt;
+            String retning = "Horisontalt";
+
+            if (vertikalt[0] > maks[0]) {
+                maks = vertikalt;
+                retning = "Vertikalt";
             }
-            int[] horisontalMaks = horisontaltProdukt(grid);
-            System.out.println("Største horisontale produkt: " + horisontalMaks[0]);
-            
-            int hRad = horisontalMaks[1];
-            int hKol = horisontalMaks[2];
+            if (diagonaltH[0] > maks[0]) {
+                maks = diagonaltH;
+                retning = "Diagonalt Høyre";
+            }
+            if (diagonaltV[0] > maks[0]) {
+                maks = diagonaltV;
+                retning = "Diagonalt Venstre";
+            }
+           
+            System.out.println("Det største produktet er: " + maks[0]);
+            System.out.println("Retning: " + retning);
 
-            System.out.println("Posisjon for tallene er: [" + hRad + ", " + hKol + "], [" + hRad + ", " + (hKol + 1) + "], [" + hRad + ", " + (hKol + 2) + "], [" + hRad + ", " + (hKol + 3) + "]");
-            
-            int[] vertikalMaks = vertikaltProdukt(grid);
-            System.out.println("Største vertikale produkt: " + vertikalMaks[0]);
-            
-            int vRad = vertikalMaks[1];
-            int vKol = vertikalMaks[2];
+            int rad = maks[1];
+            int kolonne = maks[2];
 
-            System.out.println("Posisjon for tallene er: [" + vRad + ", " + vKol + "], [" + vRad + ", " + (vKol + 1) + "], [" + vRad + ", " + (vKol + 2) + "], [" + vRad + ", " + (vKol + 3) + "]");
-            
-            int[] diagonalHMaks = diagonaltHProdukt(grid);
-            System.out.println("Største diagonale produkt (høyre): " + diagonalHMaks[0]);
-            
-            int dhRad = diagonalHMaks[1];
-            int dhKol = diagonalHMaks[2];
-            
-            System.out.println("Posisjon for tallene er: [" + dhRad + ", " + dhKol + "], [" + (dhRad + 1) + ", " + (dhKol + 1) + "], [" + (dhRad + 2) + ", " + (dhKol + 2) + "], [" + (dhRad + 3) + ", " + (dhKol + 3) + "]");
-            
-            int[] diagonalVMaks = diagonaltVProdukt(grid);
-            System.out.println("Største diagonale produkt (venstre): " + diagonalVMaks[0]);
-            
-            int dvRad = diagonalVMaks[1];
-            int dvKol = diagonalVMaks[2];
-            
-            System.out.println("Posisjon for tallene er: [" + dvRad + ", " + dvKol + "], [" + (dvRad - 1) + ", " + (dvKol + 1) + "], [" + (dvRad - 2) + ", " + (dvKol + 2) + "], [" + (dvRad - 3) + ", " + (dvKol + 3) + "]");
+            System.out.print("Indeks i grid: ");
+            switch (retning) {
+                case "Horisontalt":
+                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    break;
+                case "Vertikalt":
+                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    break;
+                case "Diagonalt Høyre":
+                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    break;
+                case "Diagonalt Venstre":
+                    System.out.println("[" + rad + ", " + kolonne + "], [" + rad + ", " + (kolonne + 1) + "], [" + rad + ", " + (kolonne + 2) + "], [" + rad + ", " + (kolonne + 3) + "]");
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
